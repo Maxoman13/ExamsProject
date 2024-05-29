@@ -3,21 +3,11 @@
     <a class="navbar-brand">Меню</a>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        {% for item in menu %}
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{% url 'main_page' %}">Главная страница</a>
+          <a class="nav-link active" aria-current="page" href="{% url item.url_name %}">{{item.title}}</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'about' %}">О нас</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link">Каталог услуг</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link">Новости</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'contacts' %}">Контакты</a>
-        </li>
+        {% endfor %}
       </ul>
     </div>
   </div>
