@@ -9,8 +9,8 @@ class Client(models.Model):
     id = models.AutoField(primary_key=True, db_column='ClientID')
     name = models.CharField(max_length=50, db_column='ClientName')
     surname = models.CharField(max_length=50, db_column='ClientSurname')
-    service = models.ForeignKey('ServiceCatalog', on_delete=models.CASCADE, db_column='ClientService')
-    price = models.ManyToManyField('ServicePrice', though='ServiceCatalog', on_delete=models.CASCADE)
+    service = models.ForeignKey('ServiceCatalog', on_delete=models.CASCADE, db_column='ServiceNameID')
+    price = models.ManyToManyField('ServiceCatalog', through='ServicePrice', related_name='Client', db_column='ServicePriceID', verbose_name='Цена')
     email = models.EmailField(db_column='ClientEmail')
     tg_name = models.CharField(max_length=50, db_column='ClientTg')
     first_date = models.DateTimeField(db_column='FirstDate')
@@ -27,8 +27,8 @@ class Client(models.Model):
 
 
 class ServiceCatalog(models.Model):
-    id = models.AutoField(primary_key=True, db_column='ServiceID')
-    service_name = models.CharField(max_length=50, db_column='ServiceName')
+    id = models.AutoField(primary_key=True, db_column='ServiceNameID')
+    service_name = models.CharField(max_length=50, unique=True, db_column='ServiceName')
 
     class Meta:
         db_table = 'ServiceCatalog'
@@ -41,11 +41,12 @@ class ServiceCatalog(models.Model):
 
 class ServicePrice(models.Model):
     id = models.AutoField(primary_key=True, db_column='ServicePriceID')
-    service_name = models.ForeignKey('ServiceCatalog', on_delete=models.CASCADE, db_column='ServiceName')
-    service_price = models.DecimalField(max_length=7, db_column='ServicePrice')
+    service_name = models.ForeignKey(ServiceCatalog, on_delete=models.CASCADE, db_column='ServiceNameID')
+    service_price = models.DecimalField(max_digits=7, decimal_places=2, db_column='ServicePrice')
+    service_client = models.ForeignKey(Client, on_delete=models.CASCADE, db_column='ClientID')
 
     class Meta:
-        db_table = 'ServiceCatalog'
+        db_table = 'ServicePrice'
         verbose_name = 'Цена услуги'
         verbose_name_plural = 'Цены услуг'
 
@@ -54,7 +55,7 @@ class ServicePrice(models.Model):
 
 
 class Status(models.Model):
-    id = models.AutoField(primary_key=True, db_column='StatusPriceID')
+    id = models.AutoField(primary_key=True, db_column='StatusID')
     status_name = models.CharField(max_length=50, db_column='StatusName')
 
     def __str__(self):
