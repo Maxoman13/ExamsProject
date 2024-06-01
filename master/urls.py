@@ -24,5 +24,5 @@ urlpatterns = [
     path('', views.MainPage.as_view(), name='main_page'),
     path('about/', views.AboutPage.as_view(), name='about'),
     path('works/', include('works.urls')),
-    path('contacts/', views.ContacsPage.as_view(), name='contacts'),
+    path('contacts/', views.ContactsPage.as_view(), name='contacts'),
 ]

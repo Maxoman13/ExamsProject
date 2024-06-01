@@ -35,7 +35,7 @@ class AboutPage(MenuMixin, TemplateView):
     template_name = 'about.html'
 
 
-class ContacsPage(MenuMixin, TemplateView):
+class ContactsPage(MenuMixin, TemplateView):
     template_name = 'contacts.html'
 
 
