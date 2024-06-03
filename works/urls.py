@@ -4,6 +4,6 @@ from works import views
 
 urlpatterns = [
     path('catalog/', views.CatalogPage.as_view(), name='catalog'),
-    path('add_service/', views.AddServiceCreateView.as_view(), name='add_service'),
+    path('catalog/add_service/', views.AddServiceCreateView.as_view(), name='add_service'),
     path('thanks/', views.Thanks.as_view(), name='thanks'),
 ]

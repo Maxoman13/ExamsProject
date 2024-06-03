@@ -10,7 +10,7 @@ info = {
         [{"title": "Главная",
           "url": "/",
           "url_name": "main_page"},
-         {"title": "О проекте",
+         {"title": "О нас",
           "url": "/about/",
           "url_name": "about"},
          {"title": "Услуги и цены",
