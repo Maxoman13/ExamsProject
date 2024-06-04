@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, CreateView
@@ -48,23 +49,16 @@ class CatalogPage(MenuMixin, TemplateView):
 
 
 class AddServiceCreateView(MenuMixin, CreateView):
-    """
-    Класс для добавления карточек
-    """
     model = Client
     form_class = ClientForm
     template_name = 'add_service.html'
     success_url = reverse_lazy('thanks')
 
     def form_valid(self, form):
-        # Метод вызывается, если форма валидна
-        # Здесь можно добавить дополнительную логику обработки данных формы перед сохранением объекта
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
-        # Метод для добавления дополнительных данных в контекст шаблона
         context = super().get_context_data(**kwargs)
-        # Добавляем в контекст информацию о меню, предполагая, что 'info' доступен в контексте
         context['menu'] = info['menu']
         return context
 
