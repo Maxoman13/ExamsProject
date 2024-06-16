@@ -5,25 +5,26 @@ import re
 
 
 class ClientForm(forms.ModelForm):
-    service = forms.ModelChoiceField(queryset=ServiceCatalog.objects.all(), empty_label="Услуга не выбрана",
-                                      label='Услуга', widget=forms.Select(attrs={'class': 'form-control'}))
-
     class Meta:
         model = Client
-        fields = ['name', 'surname', 'service', 'email', 'tg_name']
+        fields = ['name', 'surname', 'email', 'master', 'services']
         widgets = {
-            'name': forms.TextInput(attrs={'class': 'form-control'}),
-            'surname': forms.TextInput(attrs={'class': 'form-control'}),
-            'email': forms.TextInput(attrs={'class': 'form-control'}),
-            'tg_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'master': forms.Select(attrs={'onchange': 'loadServices()'}),
+            'services': forms.CheckboxSelectMultiple(),
         }
-        labels = {
-            'name': 'Имя',
-            'surname': 'Фамилия',
-            'category': 'Вид услуги',
-            'email': 'Email',
-            'tg_name': 'Телеграмм аккаунт'
-        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['services'].queryset = ServiceCatalog.objects.none()
+
+        if 'master' in self.data:
+            try:
+                master_id = int(self.data.get('master'))
+                self.fields['services'].queryset = ServiceCatalog.objects.filter(masters__id=master_id).order_by('service_name')
+            except (ValueError, TypeError):
+                pass
+        elif self.instance.pk:
+            self.fields['services'].queryset = self.instance.master.services.order_by('service_name')
 
     def save(self, *args, **kwargs):
         instance = super().save(commit=False)
