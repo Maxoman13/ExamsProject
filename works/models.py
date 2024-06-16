@@ -4,29 +4,25 @@ from django.db import models
 # Create your models here.
 
 
-class Client(models.Model):
-    name = models.CharField(max_length=50, db_column='ClientName')
-    surname = models.CharField(max_length=50, db_column='ClientSurname')
-    service = models.ForeignKey('ServiceCatalog', on_delete=models.CASCADE, db_column='ServiceNameID')
-    price = models.ManyToManyField('ServiceCatalog', through='ServicePrice', related_name='Client',
-                                   db_column='ServicePriceID')
-    email = models.EmailField(db_column='ClientEmail')
-    tg_name = models.CharField(max_length=255, db_column='ClientTg')
-    first_date = models.DateTimeField(auto_now=True, db_column='FirstDate')
-    update_date = models.DateTimeField(auto_now_add=True, db_column='UpdateDate')
-    check_status = models.ForeignKey('Status', on_delete=models.CASCADE, db_column='ClientStatus')
-
-    def __str__(self):
-        return f'Клиент {self.name} {self.surname} заказал {self.service}'
+class Master(models.Model):
+    first_name = models.CharField(max_length=50, db_column='MasterFirstName')
+    last_name = models.CharField(max_length=50, db_column='MasterLastName')
+    phone = models.CharField(max_length=15, db_column='MasterPhone')
+    services = models.ManyToManyField('ServiceCatalog', related_name='masters')
 
     class Meta:
-        db_table = 'Service'
-        verbose_name = 'Услуга'
-        verbose_name_plural = 'Услуги'
+        db_table = 'Master'
+        verbose_name = 'Мастер'
+        verbose_name_plural = 'Мастера'
+
+    def __str__(self):
+        return f'{self.first_name} {self.last_name}'
 
 
 class ServiceCatalog(models.Model):
     service_name = models.CharField(max_length=50, unique=True, db_column='ServiceName')
+    price = models.DecimalField(max_digits=7, decimal_places=2, db_column='ServicePrice')
+    service_description = models.CharField(max_length=255, db_column='ServiceDescription')
     slug_name = models.SlugField(max_length=255, unique=True, db_column='SlugName')
 
     class Meta:
@@ -35,21 +31,26 @@ class ServiceCatalog(models.Model):
         verbose_name_plural = 'Вид услуг'
 
     def __str__(self):
-        return f'Услуга {self.service_name}'
+        return f'Услуга {self.service_name} - {self.price} руб.'
 
 
-class ServicePrice(models.Model):
-    service_name = models.ForeignKey(ServiceCatalog, on_delete=models.CASCADE, db_column='ServiceNameID')
-    service_price = models.DecimalField(max_digits=7, decimal_places=2, blank=True, db_column='ServicePrice')
-    service_client = models.ForeignKey(Client, on_delete=models.CASCADE, db_column='ClientID')
+class Client(models.Model):
+    name = models.CharField(max_length=50, db_column='ClientName')
+    surname = models.CharField(max_length=50, db_column='ClientSurname')
+    email = models.EmailField(db_column='ClientEmail')
+    first_date = models.DateTimeField(auto_now=True, db_column='FirstDate')
+    update_date = models.DateTimeField(auto_now_add=True, db_column='UpdateDate')
+    services = models.ManyToManyField('ServiceCatalog', related_name='clients')
+    master = models.ForeignKey(Master, on_delete=models.CASCADE, db_column='MasterID')
+    check_status = models.ForeignKey('Status', on_delete=models.CASCADE, db_column='StatusID')
 
     class Meta:
-        db_table = 'ServicePrice'
-        verbose_name = 'Цена услуги'
-        verbose_name_plural = 'Цены услуг'
+        db_table = 'Client'
+        verbose_name = 'Клиент'
+        verbose_name_plural = 'Клиенты'
 
     def __str__(self):
-        return f'Цена услуги {self.service_name} для {self.service_client}'
+        return f'Клиент {self.name} {self.surname} заказал услуги у {self.master}'
 
 
 class Status(models.Model):
