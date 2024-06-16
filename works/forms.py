@@ -5,13 +5,24 @@ import re
 
 
 class ClientForm(forms.ModelForm):
+
     class Meta:
         model = Client
         fields = ['name', 'surname', 'email', 'master', 'services']
         widgets = {
-            'master': forms.Select(attrs={'onchange': 'loadServices()'}),
-            'services': forms.CheckboxSelectMultiple(),
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
+            'surname': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.TextInput(attrs={'class': 'form-control'}),
+            'master': forms.Select(attrs={'class': 'form-control', 'onchange': 'loadServices()'}),
+            'services': forms.CheckboxSelectMultiple(attrs={'class': 'form-control'}),
         }
+
+        labels = {
+            'name': 'Имя',
+            'surname': 'Фамилия',
+            'email': 'Электронная почта',
+            'master': 'Специалист',
+            'services': 'Услуга'}
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
