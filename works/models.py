@@ -20,9 +20,10 @@ class Master(models.Model):
 
 
 class ServiceCatalog(models.Model):
+    service_image = models.ImageField(db_column='ServiceImage')
     service_name = models.CharField(max_length=50, unique=True, db_column='ServiceName')
     price = models.DecimalField(max_digits=7, decimal_places=2, db_column='ServicePrice')
-    service_description = models.CharField(max_length=255, db_column='ServiceDescription')
+    service_description = models.TextField(max_length=1000, db_column='ServiceDescription')
     slug_name = models.SlugField(max_length=255, unique=True, db_column='SlugName')
 
     class Meta:
