@@ -8,7 +8,6 @@ class Master(models.Model):
     first_name = models.CharField(max_length=50, db_column='MasterFirstName')
     last_name = models.CharField(max_length=50, db_column='MasterLastName')
     phone = models.CharField(max_length=15, db_column='MasterPhone')
-    services = models.ManyToManyField('ServiceCatalog', related_name='masters')
 
     class Meta:
         db_table = 'Master'
