@@ -18,6 +18,18 @@ class Master(models.Model):
         return f'{self.first_name} {self.last_name}'
 
 
+class Status(models.Model):
+    status_name = models.CharField(max_length=255, db_column='StatusName')
+
+    class Meta:
+        db_table = 'Status'
+        verbose_name = 'Статус услуги'
+        verbose_name_plural = 'Статус услуг'
+
+    def __str__(self):
+        return f'Статус {self.status_name}'
+
+
 class ServiceCatalog(models.Model):
     service_image = models.ImageField(db_column='ServiceImage')
     service_name = models.CharField(max_length=50, unique=True, db_column='ServiceName')
@@ -31,7 +43,7 @@ class ServiceCatalog(models.Model):
         verbose_name_plural = 'Вид услуг'
 
     def __str__(self):
-        return f'Услуга {self.service_name} - {self.price} руб.'
+        return f'{self.service_name} - {self.price}'
 
 
 class Client(models.Model):
@@ -42,7 +54,7 @@ class Client(models.Model):
     update_date = models.DateTimeField(auto_now_add=True, db_column='UpdateDate')
     services = models.ManyToManyField('ServiceCatalog', related_name='clients')
     master = models.ForeignKey(Master, on_delete=models.CASCADE, db_column='MasterID')
-    check_status = models.ForeignKey('Status', on_delete=models.CASCADE, db_column='StatusID')
+    check_status = models.ForeignKey(Status, on_delete=models.CASCADE, db_column='StatusID')
 
     class Meta:
         db_table = 'Client'
@@ -51,15 +63,3 @@ class Client(models.Model):
 
     def __str__(self):
         return f'Клиент {self.name} {self.surname} заказал услуги у {self.master}'
-
-
-class Status(models.Model):
-    status_name = models.CharField(max_length=255, db_column='StatusName')
-
-    class Meta:
-        db_table = 'Status'
-        verbose_name = 'Статус услуги'
-        verbose_name_plural = 'Статус услуг'
-
-    def __str__(self):
-        return f'Статус {self.status_name}'
