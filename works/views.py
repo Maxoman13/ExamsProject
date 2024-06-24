@@ -1,10 +1,10 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
-from django.views.generic import TemplateView, CreateView
+from django.views.generic import TemplateView, CreateView, ListView, DetailView
 
 from works.forms import ClientForm
-from works.models import Client
+from works.models import Client, ServiceCatalog
 
 info = {
     "menu":
@@ -44,8 +44,10 @@ class ContactsPage(MenuMixin, TemplateView):
     template_name = 'contacts.html'
 
 
-class CatalogPage(MenuMixin, TemplateView):
+class CatalogPage(MenuMixin, ListView):
+    model = ServiceCatalog
     template_name = 'catalog.html'
+    context_object_name = 'services'
 
 
 class AddServiceCreateView(MenuMixin, CreateView):
@@ -65,3 +67,18 @@ class AddServiceCreateView(MenuMixin, CreateView):
 
 class Thanks(TemplateView):
     template_name = 'thanks.html'
+
+
+class ShowService(MenuMixin, DetailView):
+    model = ServiceCatalog
+    template_name = 'service_detail.html'
+    slug_url_kwarg = 'service_slug'
+    context_object_name = 'service'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = context['service']
+        return context
+
+    def get_object(self):
+        return get_object_or_404(ServiceCatalog, slug_name=self.kwargs[self.slug_url_kwarg])

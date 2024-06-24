@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 
 # Create your models here.
@@ -44,6 +45,9 @@ class ServiceCatalog(models.Model):
 
     def __str__(self):
         return f'{self.service_name} - {self.price}'
+
+    def get_absolute_url(self):
+        return reverse('service_detail', kwargs={'service_slug': self.slug_name})
 
 
 class Client(models.Model):

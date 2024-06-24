@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{service.service_name}}{% endblock %}
+{% block content %}
+
+<div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">{{service.service_name}}</h5>
+      <p class="card-text">{{service.price}}</p>
+      <p class="card-text">{{service.service_description |truncatewords:50}}</p>
+  </div>
+</div>
+
+{% endblock%}

@@ -4,6 +4,18 @@
 
 {% block content %}
 <p class="text-center fs-1 fw-bold">Каталог услуг</p>
+
+
+<p>Взгляните на наши услуги</p>
+    <div class="container text-center">
+    {% for service in services %}
+            <div class="container-lg">
+            {% include 'include/service_preview.html' %}
+            </div>
+    {% endfor %}
+            </div>
+
+
 <div class="d-grid gap-2">
     <a href="{% url 'add_service' %}" class="btn btn-primary" type="button">Выберите услугу</a>
 </div>
