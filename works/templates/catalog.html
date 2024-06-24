@@ -6,17 +6,17 @@
 <p class="text-center fs-1 fw-bold">Каталог услуг</p>
 
 
-<p>Взгляните на наши услуги</p>
+<p class="fs-3 text-center">Взгляните на наши услуги</p>
     <div class="container text-center">
     {% for service in services %}
-            <div class="container-lg">
+            <div class="container-lg p-2">
             {% include 'include/service_preview.html' %}
             </div>
     {% endfor %}
             </div>
 
 
-<div class="d-grid gap-2">
+<div class="d-grid gap-2 p-4">
     <a href="{% url 'add_service' %}" class="btn btn-primary" type="button">Выберите услугу</a>
 </div>
 {% endblock%}

@@ -47,7 +47,7 @@ class ServiceCatalog(models.Model):
         return f'{self.service_name} - {self.price}'
 
     def get_absolute_url(self):
-        return reverse('service_detail', kwargs={'service_slug': self.slug_name})
+        return reverse('service', kwargs={'service_slug': self.slug_name})
 
 
 class Client(models.Model):
