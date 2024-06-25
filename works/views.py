@@ -65,7 +65,7 @@ class AddServiceCreateView(MenuMixin, CreateView):
         return context
 
 
-class Thanks(TemplateView):
+class Thanks(MenuMixin, TemplateView):
     template_name = 'thanks.html'
 
 

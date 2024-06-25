@@ -57,9 +57,9 @@ class Client(models.Model):
     email = models.EmailField(db_column='ClientEmail')
     first_date = models.DateTimeField(auto_now=True, db_column='FirstDate')
     update_date = models.DateTimeField(auto_now_add=True, db_column='UpdateDate')
-    services = models.ForeignKey('ServiceCatalog', on_delete=models.CASCADE, db_column='ClientService')
-    master = models.ForeignKey(Master, default='', on_delete=models.CASCADE, db_column='MasterID')
-    check_status = models.ForeignKey(Status, default='', on_delete=models.CASCADE, db_column='StatusID')
+    services = models.ForeignKey(ServiceCatalog, on_delete=models.CASCADE, db_column='ClientService')
+    master = models.ForeignKey(Master, on_delete=models.CASCADE, blank=True, null=True, db_column='MasterID')
+    check_status = models.ForeignKey(Status, on_delete=models.CASCADE, blank=True, null=True, db_column='StatusID')
 
     class Meta:
         db_table = 'Client'
