@@ -11,7 +11,7 @@ class ClientForm(forms.ModelForm):
 
     class Meta:
         model = Client
-        fields = ['name', 'surname', 'email', 'services', 'master', 'check_status']
+        fields = ['name', 'surname', 'email', 'services']
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control'}),
             'surname': forms.TextInput(attrs={'class': 'form-control'}),
@@ -24,7 +24,6 @@ class ClientForm(forms.ModelForm):
             'surname': 'Фамилия',
             'email': 'Электронная почта',
             'services': 'Услуга'}
-
 
     def save(self, *args, **kwargs):
         instance = super().save(commit=False)

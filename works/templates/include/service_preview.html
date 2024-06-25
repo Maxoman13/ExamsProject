@@ -3,7 +3,7 @@
     <h2 class="card-title">{{service.service_name}}</h2>
   </div>
   <div class="card-body">
-    <p class="fs-3 card-text">{{service.price}}</p>
+    <p class="fs-3 card-text">Цена услуги {{service.price}}</p>
     <p class="card-text">{{service.service_description|truncatewords:25}}</p>
     <a href="{{ service.get_absolute_url }}" class="btn btn-primary">Узнать подробности</a>
   </div>

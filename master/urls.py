@@ -16,7 +16,10 @@ Including another URLconf
 """
 
 from django.contrib import admin
+from django.conf.urls.static import static
 from django.urls import path, include
+
+from master import settings
 from works import views
 
 urlpatterns = [
@@ -26,3 +29,6 @@ urlpatterns = [
     path('works/', include('works.urls')),
     path('contacts/', views.ContactsPage.as_view(), name='contacts'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

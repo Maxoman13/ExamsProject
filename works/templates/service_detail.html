@@ -3,13 +3,14 @@
 {% block title %}{{service.service_name}}{% endblock %}
 {% block content %}
 
-<div class="container-fluid position-absolute top-50 start-50 translate-middle">
-<div class="card">
+<div class="container-fluid">
   <div class="card-body text-center">
     <h5 class="card-title">{{service.service_name}}</h5>
-      <p class="card-text">{{service.price}}</p>
+    {% if service.service_image %}
+      <p ><img class="img-fluid" style="height: 100%; border: solid; border-color: black" src="{{service.service_image.url}}"></p>
+    {% endif %}
+      <p class="card-text">Цена услуги {{service.price}}</p>
       <p class="card-text">{{service.service_description}}</p>
   </div>
-</div>
 </div>
 {% endblock%}

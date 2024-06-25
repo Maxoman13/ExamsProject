@@ -32,7 +32,8 @@ class Status(models.Model):
 
 
 class ServiceCatalog(models.Model):
-    service_image = models.ImageField(db_column='ServiceImage')
+    service_image = models.ImageField(upload_to="photos/", default=None, blank=True,
+                                      null=True, db_column='ServiceImage')
     service_name = models.CharField(max_length=50, unique=True, db_column='ServiceName')
     price = models.DecimalField(max_digits=7, decimal_places=2, db_column='ServicePrice')
     service_description = models.TextField(max_length=1000, db_column='ServiceDescription')
@@ -56,9 +57,9 @@ class Client(models.Model):
     email = models.EmailField(db_column='ClientEmail')
     first_date = models.DateTimeField(auto_now=True, db_column='FirstDate')
     update_date = models.DateTimeField(auto_now_add=True, db_column='UpdateDate')
-    services = models.ManyToManyField('ServiceCatalog', related_name='clients')
-    master = models.ForeignKey(Master, on_delete=models.CASCADE, db_column='MasterID')
-    check_status = models.ForeignKey(Status, on_delete=models.CASCADE, db_column='StatusID')
+    services = models.ForeignKey('ServiceCatalog', on_delete=models.CASCADE, db_column='ClientService')
+    master = models.ForeignKey(Master, default='', on_delete=models.CASCADE, db_column='MasterID')
+    check_status = models.ForeignKey(Status, default='', on_delete=models.CASCADE, db_column='StatusID')
 
     class Meta:
         db_table = 'Client'
