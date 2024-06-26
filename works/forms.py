@@ -5,9 +5,8 @@ import re
 
 
 class ClientForm(forms.ModelForm):
-    services = forms.CheckboxSelectMultiple()
-    check_status = forms.Select()
-    master = forms.Select()
+    services = forms.ModelChoiceField(queryset=ServiceCatalog.objects.all(), empty_label="Услуга не выбрана",
+                                      label='Услуга', widget=forms.Select(attrs={'class': 'form-control'}))
 
     class Meta:
         model = Client

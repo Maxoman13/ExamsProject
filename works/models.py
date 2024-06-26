@@ -28,7 +28,7 @@ class Status(models.Model):
         verbose_name_plural = 'Статус услуг'
 
     def __str__(self):
-        return f'Статус {self.status_name}'
+        return f'{self.status_name}'
 
 
 class ServiceCatalog(models.Model):
