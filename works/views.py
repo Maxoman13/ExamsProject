@@ -85,5 +85,7 @@ class ShowService(MenuMixin, DetailView):
         return get_object_or_404(ServiceCatalog, slug_name=self.kwargs[self.slug_url_kwarg])
 
 
-def page_not_found(request, exception):
-    return HttpResponseNotFound("<h1>Страница не найдена</h1>")
+def page_not_found(request, exception, template_name='404.html'):
+    response = render(request, template_name)
+    response.status_code = 404
+    return response
