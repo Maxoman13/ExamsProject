@@ -15,6 +15,7 @@ pip install -r requirements.txt
 cp .env.example .env
 
 Откройте файл .env и заполните следующие переменные окружения:
+
 SECRET_KEY= Введите секретный ключ Джанго
 
 DATABASE_URL=Введите путь к базе данных
