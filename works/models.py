@@ -6,9 +6,9 @@ from django.urls import reverse
 
 
 class Master(models.Model):
-    first_name = models.CharField(max_length=50, db_column='MasterFirstName')
-    last_name = models.CharField(max_length=50, db_column='MasterLastName')
-    phone = models.CharField(max_length=15, db_column='MasterPhone')
+    first_name = models.CharField(max_length=50, db_column='MasterFirstName', verbose_name='Имя мастера')
+    last_name = models.CharField(max_length=50, db_column='MasterLastName', verbose_name='Фамилия мастера')
+    phone = models.CharField(max_length=15, db_column='MasterPhone', verbose_name='Номер телефона мастера')
 
     class Meta:
         db_table = 'Master'
@@ -20,7 +20,7 @@ class Master(models.Model):
 
 
 class Status(models.Model):
-    status_name = models.CharField(max_length=255, db_column='StatusName')
+    status_name = models.CharField(max_length=255, db_column='StatusName', verbose_name='Статус')
 
     class Meta:
         db_table = 'Status'
@@ -33,10 +33,11 @@ class Status(models.Model):
 
 class ServiceCatalog(models.Model):
     service_image = models.ImageField(upload_to="photos/", default=None, blank=True,
-                                      null=True, db_column='ServiceImage')
-    service_name = models.CharField(max_length=50, unique=True, db_column='ServiceName')
-    price = models.DecimalField(max_digits=7, decimal_places=2, db_column='ServicePrice')
-    service_description = models.TextField(max_length=1000, db_column='ServiceDescription')
+                                      null=True, db_column='ServiceImage', verbose_name='Изображение')
+    service_name = models.CharField(max_length=50, unique=True, db_column='ServiceName', verbose_name='Название услуги')
+    price = models.DecimalField(max_digits=7, decimal_places=2, db_column='ServicePrice', verbose_name='Цена услуги')
+    service_description = models.TextField(max_length=1000, db_column='ServiceDescription',
+                                           verbose_name='Описание услуги')
     slug_name = models.SlugField(max_length=255, unique=True, db_column='SlugName')
 
     class Meta:
@@ -52,14 +53,17 @@ class ServiceCatalog(models.Model):
 
 
 class Client(models.Model):
-    name = models.CharField(max_length=50, db_column='ClientName')
-    surname = models.CharField(max_length=50, db_column='ClientSurname')
-    email = models.EmailField(db_column='ClientEmail')
-    first_date = models.DateTimeField(auto_now=True, db_column='FirstDate')
-    update_date = models.DateTimeField(auto_now_add=True, db_column='UpdateDate')
-    services = models.ForeignKey(ServiceCatalog, on_delete=models.CASCADE, db_column='ClientService')
-    master = models.ForeignKey(Master, on_delete=models.CASCADE, blank=True, null=True, db_column='MasterID')
-    check_status = models.ForeignKey(Status, on_delete=models.CASCADE, blank=True, null=True, db_column='StatusID')
+    name = models.CharField(max_length=50, db_column='ClientName', verbose_name='Имя клиента')
+    surname = models.CharField(max_length=50, db_column='ClientSurname', verbose_name='Фамилия клиента')
+    email = models.EmailField(db_column='ClientEmail', verbose_name='Электронная почта')
+    update_date = models.DateTimeField(auto_now=True, db_column='UpdateDate', verbose_name='Дата обновления')
+    first_date = models.DateTimeField(auto_now_add=True, db_column='FirstDate', verbose_name='Дата заказа')
+    services = models.ForeignKey(ServiceCatalog, on_delete=models.CASCADE, db_column='ClientService',
+                                 verbose_name='Услуга')
+    master = models.ForeignKey(Master, on_delete=models.CASCADE, blank=True, null=True, db_column='MasterID',
+                               verbose_name='Мастер')
+    check_status = models.ForeignKey(Status, on_delete=models.CASCADE, blank=True, null=True, db_column='StatusID',
+                                     verbose_name='Статус')
 
     class Meta:
         db_table = 'Client'
