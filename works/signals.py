@@ -11,5 +11,5 @@ import os
 @receiver(post_save, sender=Client)
 def notify_admin(sender, instance, created, **kwargs):
     if created:
-        message = f'Новый клиент: {instance.name} {instance.surname} была добавлена.'
+        message = f'Новый клиент {instance.name} {instance.surname} был добавлена.'
         asyncio.run(send_telegram_message(TELEGRAM_BOT_TOKEN, YOUR_PERSONAL_CHAT_ID, message))

@@ -137,13 +137,13 @@ JAZZMIN_SETTINGS = {
     "site_logo": "works/images/logo.jpg",
     "copyright": "Сайт разработан для сдачи экзаменационного проекта. Cadengee.com",
     "topmenu_links": [{"name": "Главная",
-          "url": "/",},
-         {"name": "О нас",
-          "url": "/about/",},
-         {"name": "Услуги и цены",
-          "url": "/catalog/",},
-         {"name": "Контакты",
-          "url": "/contacts/",
-          },
-         ]
+                       "url": "/", },
+                      {"name": "О нас",
+                       "url": "/about/", },
+                      {"name": "Услуги и цены",
+                       "url": "/catalog/", },
+                      {"name": "Контакты",
+                       "url": "/contacts/",
+                       },
+                      ]
 }
