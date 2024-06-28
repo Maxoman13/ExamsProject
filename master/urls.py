@@ -21,6 +21,7 @@ from django.urls import path, include
 
 from master import settings
 from works import views
+from works.views import page_not_found
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,6 +30,8 @@ urlpatterns = [
     path('works/', include('works.urls')),
     path('contacts/', views.ContactsPage.as_view(), name='contacts'),
 ]
+
+handler404 = page_not_found
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

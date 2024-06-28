@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponseNotFound
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, CreateView, ListView, DetailView
@@ -82,3 +83,7 @@ class ShowService(MenuMixin, DetailView):
 
     def get_object(self):
         return get_object_or_404(ServiceCatalog, slug_name=self.kwargs[self.slug_url_kwarg])
+
+
+def page_not_found(request, exception):
+    return HttpResponseNotFound("<h1>Страница не найдена</h1>")
