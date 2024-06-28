@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ['127.0.0.1']
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -130,3 +131,19 @@ MEDIA_URL = '/media/'
 
 TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 YOUR_PERSONAL_CHAT_ID = os.getenv("YOUR_PERSONAL_CHAT_ID")
+
+JAZZMIN_SETTINGS = {
+    "site_brand": "Агенство Cadengee",
+    "site_logo": "works/images/logo.jpg",
+    "copyright": "Сайт разработан для сдачи экзаменационного проекта. Cadengee.com",
+    "topmenu_links": [{"name": "Главная",
+          "url": "/",},
+         {"name": "О нас",
+          "url": "/about/",},
+         {"name": "Услуги и цены",
+          "url": "/catalog/",},
+         {"name": "Контакты",
+          "url": "/contacts/",
+          },
+         ]
+}
