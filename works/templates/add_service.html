@@ -3,7 +3,7 @@
 {% block title %}Добавление услуги{% endblock %}
 {% block content %}
 <h1 class="text-center fs-1 fw-bold">Добавить услугу</h1>
-<p>Заполните поля формы, чтобы офрмить услугу.</p>
+<p class="text-center fs-5">Заполните поля формы, чтобы оформить услугу.</p>
 <form method="post" novalidate>
     {% csrf_token %}
     {% for field in form %}
