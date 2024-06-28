@@ -5,3 +5,4 @@
 /db.json
 media/
 /.env
+/.db.sqlite3
