@@ -2,6 +2,5 @@
 .venv
 .idea
 /client.db
-/db.json
 media/
 /.env
