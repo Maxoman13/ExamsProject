@@ -144,14 +144,15 @@ JAZZMIN_SETTINGS = {
     "site_brand": "Агенство Cadengee",
     "site_logo": "works/images/logo.jpg",
     "copyright": "Сайт разработан для сдачи экзаменационного проекта. Cadengee.com",
+    "welcome_sign": "Добро пожаловать",
+    "site_logo_classes": "rounded-circle",
     "topmenu_links": [{"name": "Главная",
                        "url": "/", },
                       {"name": "О нас",
                        "url": "/about/", },
-                      {"name": "Услуги и цены",
-                       "url": "/catalog/", },
                       {"name": "Контакты",
                        "url": "/contacts/",
                        },
-                      ]
+                      ],
+    "hide_models": ["auth.user", "auth.group"],
 }
