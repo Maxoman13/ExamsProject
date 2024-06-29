@@ -18,10 +18,6 @@ cp .env.example .env
 
 SECRET_KEY= Введите секретный ключ Джанго
 
-DATABASE_URL=Введите путь к базе данных
-
-DEBUG=Режим Debug
-
 TELEGRAM_BOT_TOKEN=<ваш_токен_бота>
 
 YOUR_PERSONAL_CHAT_ID=<ваш_чат_айди>
