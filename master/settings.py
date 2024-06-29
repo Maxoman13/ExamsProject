@@ -29,6 +29,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['www.cadengee.ru', 'cadengee.ru', 'localhost', '127.0.0.1']
 
+CSRF_TRUSTED_ORIGINS = ['https://cadengee.ru', 'https://www.cadengee.ru']
+
+
 if DEBUG:
     INTERNAL_IPS = [
         '127.0.0.1',
